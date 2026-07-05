@@ -12,3 +12,4 @@ plugins {
 
 rootProject.name = "prayer-time-plus"
 include("lib")
+include("example")
