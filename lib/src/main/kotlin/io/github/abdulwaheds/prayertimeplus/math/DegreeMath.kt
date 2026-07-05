@@ -21,6 +21,8 @@ import kotlin.math.tan
 
 private const val DEGREES_PER_RADIAN = 180.0 / PI
 private const val RADIANS_PER_DEGREE = PI / 180.0
+private const val DEGREES_IN_CIRCLE = 360.0
+private const val HOURS_IN_DAY = 24.0
 
 /** Sine of an angle given in [degrees]. */
 internal fun sinDeg(degrees: Double): Double = sin(degrees * RADIANS_PER_DEGREE)
@@ -38,7 +40,10 @@ internal fun arcsinDeg(x: Double): Double = asin(x) * DEGREES_PER_RADIAN
 internal fun arccosDeg(x: Double): Double = acos(x) * DEGREES_PER_RADIAN
 
 /** Two-argument arctangent of ([y], [x]), returned in degrees. */
-internal fun arctan2Deg(y: Double, x: Double): Double = atan2(y, x) * DEGREES_PER_RADIAN
+internal fun arctan2Deg(
+    y: Double,
+    x: Double,
+): Double = atan2(y, x) * DEGREES_PER_RADIAN
 
 /**
  * Arccotangent of [x], returned in degrees.
@@ -50,19 +55,19 @@ internal fun arctan2Deg(y: Double, x: Double): Double = atan2(y, x) * DEGREES_PE
 internal fun arccotDeg(x: Double): Double = atan2(1.0, x) * DEGREES_PER_RADIAN
 
 /** Wraps [angle] into the half-open range `[0, 360)` degrees. */
-internal fun fixAngle(angle: Double): Double = wrap(angle, 360.0)
+internal fun fixAngle(angle: Double): Double = wrap(angle, DEGREES_IN_CIRCLE)
 
 /** Wraps [hour] into the half-open range `[0, 24)` hours. */
-internal fun fixHour(hour: Double): Double = wrap(hour, 24.0)
-
-/** The forward hour distance from [a] to [b], wrapped into `[0, 24)`. */
-internal fun timeDifference(a: Double, b: Double): Double = fixHour(b - a)
+internal fun fixHour(hour: Double): Double = wrap(hour, HOURS_IN_DAY)
 
 /**
  * Wraps [value] into `[0, modulus)` using floor toward negative infinity, so
  * negative inputs wrap the same way the reference engine's `Math.floor` does.
  */
-private fun wrap(value: Double, modulus: Double): Double {
+private fun wrap(
+    value: Double,
+    modulus: Double,
+): Double {
     val remainder = value - modulus * floor(value / modulus)
     return if (remainder < 0.0) remainder + modulus else remainder
 }

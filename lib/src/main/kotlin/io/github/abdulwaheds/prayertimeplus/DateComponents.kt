@@ -20,7 +20,6 @@ public data class DateComponents(
 ) {
     public companion object {
         /** Extracts the year/month/day of [date], discarding any zone context. */
-        public fun from(date: LocalDate): DateComponents =
-            DateComponents(date.year, date.monthValue, date.dayOfMonth)
+        public fun from(date: LocalDate): DateComponents = DateComponents(date.year, date.monthValue, date.dayOfMonth)
     }
 }

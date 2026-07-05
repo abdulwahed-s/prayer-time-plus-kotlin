@@ -32,14 +32,20 @@ class RamadanTest {
         assertEquals(90, minutesBetween(outside.maghrib, outside.isha))
     }
 
-    private fun ummAlQura(country: String, ramadan: Boolean): PrayerTimes = PrayerTimes(
-        coordinates = mecca,
-        dateComponents = date,
-        calculationParameters = CalculationMethod.UMM_AL_QURA.parameters().copy(isRamadan = ramadan),
-        utcOffset = offset,
-        countryCode = country,
-    )
+    private fun ummAlQura(
+        country: String,
+        ramadan: Boolean,
+    ): PrayerTimes =
+        PrayerTimes(
+            coordinates = mecca,
+            dateComponents = date,
+            calculationParameters = CalculationMethod.UMM_AL_QURA.parameters().copy(isRamadan = ramadan),
+            utcOffset = offset,
+            countryCode = country,
+        )
 
-    private fun minutesBetween(from: OffsetDateTime?, to: OffsetDateTime?): Long =
-        Duration.between(requireNotNull(from), requireNotNull(to)).toMinutes()
+    private fun minutesBetween(
+        from: OffsetDateTime?,
+        to: OffsetDateTime?,
+    ): Long = Duration.between(requireNotNull(from), requireNotNull(to)).toMinutes()
 }

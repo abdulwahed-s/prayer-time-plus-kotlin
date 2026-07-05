@@ -35,13 +35,18 @@ public data class Coordinates(
             longitude: Double,
             altitude: Double = 0.0,
         ): Coordinates {
-            require(latitude in -90.0..90.0) {
-                "latitude must be in [-90, 90] degrees, but was $latitude"
+            require(latitude in MIN_LATITUDE..MAX_LATITUDE) {
+                "latitude must be in [$MIN_LATITUDE, $MAX_LATITUDE] degrees, but was $latitude"
             }
-            require(longitude in -180.0..180.0) {
-                "longitude must be in [-180, 180] degrees, but was $longitude"
+            require(longitude in MIN_LONGITUDE..MAX_LONGITUDE) {
+                "longitude must be in [$MIN_LONGITUDE, $MAX_LONGITUDE] degrees, but was $longitude"
             }
             return Coordinates(latitude, longitude, altitude)
         }
+
+        private const val MIN_LATITUDE = -90.0
+        private const val MAX_LATITUDE = 90.0
+        private const val MIN_LONGITUDE = -180.0
+        private const val MAX_LONGITUDE = 180.0
     }
 }

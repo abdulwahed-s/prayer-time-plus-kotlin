@@ -16,14 +16,15 @@ class GoldenTest {
 
     @Test
     fun muslimWorldLeagueMatchesSoharGolden() {
-        val times = PrayerTimes(
-            coordinates = sohar,
-            dateComponents = date,
-            calculationParameters = CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters(),
-            utcOffset = offset,
-            countryCode = "OM",
-            cityName = "sohar",
-        )
+        val times =
+            PrayerTimes(
+                coordinates = sohar,
+                dateComponents = date,
+                calculationParameters = CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters(),
+                utcOffset = offset,
+                countryCode = "OM",
+                cityName = "sohar",
+            )
 
         assertEquals("03:59", times.fajr.hhmm(), "Fajr")
         assertEquals("05:27", times.sunrise.hhmm(), "Sunrise")
@@ -36,14 +37,15 @@ class GoldenTest {
 
     @Test
     fun omanMatchesSoharGolden() {
-        val times = PrayerTimes(
-            coordinates = sohar,
-            dateComponents = date,
-            calculationParameters = CalculationMethod.OMAN.parameters(),
-            utcOffset = offset,
-            countryCode = "OM",
-            cityName = "sohar",
-        )
+        val times =
+            PrayerTimes(
+                coordinates = sohar,
+                dateComponents = date,
+                calculationParameters = CalculationMethod.OMAN.parameters(),
+                utcOffset = offset,
+                countryCode = "OM",
+                cityName = "sohar",
+            )
 
         assertEquals("03:59", times.fajr.hhmm(), "Fajr")
         assertEquals("05:27", times.sunrise.hhmm(), "Sunrise")

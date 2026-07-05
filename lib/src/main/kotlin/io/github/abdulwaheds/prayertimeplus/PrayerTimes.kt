@@ -70,22 +70,24 @@ public class PrayerTimes(
     public val isha: OffsetDateTime?
 
     init {
-        val calculator = PrayerTimeCalculator(
-            coordinates = coordinates,
-            date = dateComponents,
-            parameters = calculationParameters,
-            countryCode = countryCode,
-            timeZoneHours = utcOffset.totalSeconds / SECONDS_PER_HOUR,
-        )
+        val calculator =
+            PrayerTimeCalculator(
+                coordinates = coordinates,
+                date = dateComponents,
+                parameters = calculationParameters,
+                countryCode = countryCode,
+                timeZoneHours = utcOffset.totalSeconds / SECONDS_PER_HOUR,
+            )
 
         val explicitRule = calculationParameters.highLatitudeRule
         val firstPass = calculator.compute(explicitRule ?: HighLatitudeRule.NONE)
-        val resolved = if (explicitRule == null && firstPass.looksDegenerate()) {
-            // Auto mode retries once with a night-fraction fallback.
-            calculator.compute(HighLatitudeRule.SEVENTH_OF_THE_NIGHT)
-        } else {
-            firstPass
-        }
+        val resolved =
+            if (explicitRule == null && firstPass.looksDegenerate()) {
+                // Auto mode retries once with a night-fraction fallback.
+                calculator.compute(HighLatitudeRule.SEVENTH_OF_THE_NIGHT)
+            } else {
+                firstPass
+            }
 
         fajr = buildTime(roundedMinuteOfDay(resolved.fajr))
         sunrise = buildTime(roundedMinuteOfDay(resolved.sunrise))
@@ -97,15 +99,16 @@ public class PrayerTimes(
     }
 
     /** The [OffsetDateTime] for [prayer], or `null` for [Prayer.NONE] or an undefined time. */
-    public fun timeForPrayer(prayer: Prayer): OffsetDateTime? = when (prayer) {
-        Prayer.FAJR -> fajr
-        Prayer.SUNRISE -> sunrise
-        Prayer.DHUHR -> dhuhr
-        Prayer.ASR -> asr
-        Prayer.MAGHRIB -> maghrib
-        Prayer.ISHA -> isha
-        Prayer.NONE -> null
-    }
+    public fun timeForPrayer(prayer: Prayer): OffsetDateTime? =
+        when (prayer) {
+            Prayer.FAJR -> fajr
+            Prayer.SUNRISE -> sunrise
+            Prayer.DHUHR -> dhuhr
+            Prayer.ASR -> asr
+            Prayer.MAGHRIB -> maghrib
+            Prayer.ISHA -> isha
+            Prayer.NONE -> null
+        }
 
     /**
      * The prayer whose window contains [at]: the latest prayer whose time is at
@@ -123,14 +126,15 @@ public class PrayerTimes(
         orderedTimes().firstOrNull { (_, time) -> time != null && at.isBefore(time) }?.first
             ?: Prayer.NONE
 
-    private fun orderedTimes(): List<Pair<Prayer, OffsetDateTime?>> = listOf(
-        Prayer.FAJR to fajr,
-        Prayer.SUNRISE to sunrise,
-        Prayer.DHUHR to dhuhr,
-        Prayer.ASR to asr,
-        Prayer.MAGHRIB to maghrib,
-        Prayer.ISHA to isha,
-    )
+    private fun orderedTimes(): List<Pair<Prayer, OffsetDateTime?>> =
+        listOf(
+            Prayer.FAJR to fajr,
+            Prayer.SUNRISE to sunrise,
+            Prayer.DHUHR to dhuhr,
+            Prayer.ASR to asr,
+            Prayer.MAGHRIB to maghrib,
+            Prayer.ISHA to isha,
+        )
 
     private fun buildTime(minuteOfDay: Int?): OffsetDateTime? {
         if (minuteOfDay == null) return null
@@ -170,13 +174,14 @@ public class PrayerTimes(
             utcOffset: ZoneOffset,
             countryCode: String = "",
             cityName: String = "",
-        ): PrayerTimes = PrayerTimes(
-            coordinates = coordinates,
-            dateComponents = DateComponents.from(LocalDate.now(utcOffset)),
-            calculationParameters = parameters,
-            utcOffset = utcOffset,
-            countryCode = countryCode,
-            cityName = cityName,
-        )
+        ): PrayerTimes =
+            PrayerTimes(
+                coordinates = coordinates,
+                dateComponents = DateComponents.from(LocalDate.now(utcOffset)),
+                calculationParameters = parameters,
+                utcOffset = utcOffset,
+                countryCode = countryCode,
+                cityName = cityName,
+            )
     }
 }

@@ -39,10 +39,14 @@ class RegionalOffsetTest {
         }
     }
 
-    private fun timesFor(params: CalculationParameters): PrayerTimes =
-        PrayerTimes(coordinates, date, params, offset)
+    private fun timesFor(params: CalculationParameters): PrayerTimes = PrayerTimes(coordinates, date, params, offset)
 
-    private fun assertShifted(base: OffsetDateTime?, full: OffsetDateTime?, minutes: Int, label: String) {
+    private fun assertShifted(
+        base: OffsetDateTime?,
+        full: OffsetDateTime?,
+        minutes: Int,
+        label: String,
+    ) {
         assertNotNull(base, "$label baseline should be defined")
         assertNotNull(full, "$label method should be defined")
         assertEquals(base.plusMinutes(minutes.toLong()), full, label)

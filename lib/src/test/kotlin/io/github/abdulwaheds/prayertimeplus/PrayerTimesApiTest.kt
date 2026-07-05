@@ -10,16 +10,19 @@ import kotlin.test.assertTrue
 /** Current/next prayer selection, [PrayerTimes.timeForPrayer], and Sunnah times. */
 class PrayerTimesApiTest {
     private val offset = ZoneOffset.ofHours(4)
-    private val times = PrayerTimes(
-        coordinates = Coordinates(24.3486, 56.6953, 5.0),
-        dateComponents = DateComponents(2026, 6, 28),
-        calculationParameters = CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters(),
-        utcOffset = offset,
-        countryCode = "OM",
-    )
+    private val times =
+        PrayerTimes(
+            coordinates = Coordinates(24.3486, 56.6953, 5.0),
+            dateComponents = DateComponents(2026, 6, 28),
+            calculationParameters = CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters(),
+            utcOffset = offset,
+            countryCode = "OM",
+        )
 
-    private fun at(hour: Int, minute: Int): OffsetDateTime =
-        OffsetDateTime.of(2026, 6, 28, hour, minute, 0, 0, offset)
+    private fun at(
+        hour: Int,
+        minute: Int,
+    ): OffsetDateTime = OffsetDateTime.of(2026, 6, 28, hour, minute, 0, 0, offset)
 
     @Test
     fun beforeFajrThereIsNoCurrentPrayer() {

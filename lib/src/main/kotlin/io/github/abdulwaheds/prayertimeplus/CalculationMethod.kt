@@ -208,14 +208,15 @@ public enum class CalculationMethod(public val key: String) {
             maghribValue = values[MAGHRIB_VALUE],
             ishaIsInterval = values[ISHA_FLAG] == 1.0,
             ishaValue = values[ISHA_VALUE],
-            methodAdjustments = PrayerAdjustments(
-                fajr = values[FAJR_ADJ].toInt(),
-                sunrise = values[SUNRISE_ADJ].toInt(),
-                dhuhr = values[DHUHR_ADJ].toInt(),
-                asr = values[ASR_ADJ].toInt(),
-                maghrib = values[MAGHRIB_ADJ].toInt(),
-                isha = values[ISHA_ADJ].toInt(),
-            ),
+            methodAdjustments =
+                PrayerAdjustments(
+                    fajr = values[FAJR_ADJ].toInt(),
+                    sunrise = values[SUNRISE_ADJ].toInt(),
+                    dhuhr = values[DHUHR_ADJ].toInt(),
+                    asr = values[ASR_ADJ].toInt(),
+                    maghrib = values[MAGHRIB_ADJ].toInt(),
+                    isha = values[ISHA_ADJ].toInt(),
+                ),
         )
     }
 

@@ -41,9 +41,10 @@ public class SunnahTimes(prayerTimes: PrayerTimes) {
 
     private fun nextDayFajr(prayerTimes: PrayerTimes): OffsetDateTime? {
         val today = prayerTimes.dateComponents
-        val tomorrow = DateComponents.from(
-            LocalDate.of(today.year, today.month, today.day).plusDays(1),
-        )
+        val tomorrow =
+            DateComponents.from(
+                LocalDate.of(today.year, today.month, today.day).plusDays(1),
+            )
         return PrayerTimes(
             coordinates = prayerTimes.coordinates,
             dateComponents = tomorrow,

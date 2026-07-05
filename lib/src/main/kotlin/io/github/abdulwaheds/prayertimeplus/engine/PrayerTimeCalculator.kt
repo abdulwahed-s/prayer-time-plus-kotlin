@@ -13,7 +13,6 @@ import io.github.abdulwaheds.prayertimeplus.math.sinDeg
 import io.github.abdulwaheds.prayertimeplus.math.sunPosition
 import io.github.abdulwaheds.prayertimeplus.math.tanDeg
 import kotlin.math.abs
-import kotlin.math.floor
 import kotlin.math.sqrt
 
 /** The seven daily solar times as fractional local hours (any may be `NaN`). */
@@ -129,7 +128,10 @@ internal class PrayerTimeCalculator(
      * seeded at day fraction [t]. A morning request passes `180 − angle`, which
      * exceeds 90° and flips the result to before noon.
      */
-    private fun sunAngleTime(angle: Double, t: Double): Double {
+    private fun sunAngleTime(
+        angle: Double,
+        t: Double,
+    ): Double {
         val declination = sunPosition(baseDate + t).declination
         val noon = midDay(t)
         val numerator = -sinDeg(angle) - sinDeg(declination) * sinDeg(latitude)
@@ -142,7 +144,10 @@ internal class PrayerTimeCalculator(
     }
 
     /** Asr time for the given shadow [factor], seeded at day fraction [t]. */
-    private fun asrTime(factor: Double, t: Double): Double {
+    private fun asrTime(
+        factor: Double,
+        t: Double,
+    ): Double {
         val declination = sunPosition(baseDate + t).declination
         val sunAltitude = arccotDeg(factor + tanDeg(abs(latitude - declination)))
         return sunAngleTime(-sunAltitude, t)
@@ -151,12 +156,16 @@ internal class PrayerTimeCalculator(
     private fun usesElevation(): Boolean =
         parameters.method in ELEVATION_METHODS || countryCode.uppercase() in ELEVATION_COUNTRIES
 
-    private fun nightPortion(rule: HighLatitudeRule, angle: Double): Double = when (rule) {
-        HighLatitudeRule.NONE -> 0.0
-        HighLatitudeRule.MIDDLE_OF_THE_NIGHT -> MIDDLE_PORTION
-        HighLatitudeRule.SEVENTH_OF_THE_NIGHT -> SEVENTH_PORTION
-        HighLatitudeRule.TWILIGHT_ANGLE -> angle / TWILIGHT_ANGLE_DIVISOR
-    }
+    private fun nightPortion(
+        rule: HighLatitudeRule,
+        angle: Double,
+    ): Double =
+        when (rule) {
+            HighLatitudeRule.NONE -> 0.0
+            HighLatitudeRule.MIDDLE_OF_THE_NIGHT -> MIDDLE_PORTION
+            HighLatitudeRule.SEVENTH_OF_THE_NIGHT -> SEVENTH_PORTION
+            HighLatitudeRule.TWILIGHT_ANGLE -> angle / TWILIGHT_ANGLE_DIVISOR
+        }
 
     private companion object {
         const val REFRACTION_DIP = 0.833
@@ -188,19 +197,3 @@ internal class PrayerTimeCalculator(
         val ELEVATION_COUNTRIES = setOf("PS", "IL", "CZ", "CH")
     }
 }
-
-/**
- * Rounds a fractional-hour time to the nearest minute of the day (`0..1439`),
- * or returns `null` when the time is undefined (`NaN`).
- *
- * Adds 30 seconds and truncates, matching the reference engine's rounding.
- */
-internal fun roundedMinuteOfDay(hours: Double): Int? {
-    if (hours.isNaN()) return null
-    val bumped = fixHour(hours + HALF_MINUTE_IN_HOURS)
-    val hour = floor(bumped).toInt()
-    val minute = floor((bumped - hour) * 60.0).toInt()
-    return hour * 60 + minute
-}
-
-private const val HALF_MINUTE_IN_HOURS = 0.0083333333
