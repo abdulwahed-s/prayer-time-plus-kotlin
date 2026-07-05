@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
     `java-library`
     `maven-publish`
 }
@@ -39,6 +41,11 @@ java {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(rootProject.file("detekt.yml"))
 }
 
 publishing {
@@ -101,10 +108,11 @@ tasks.register("generatePrayerData") {
 
         @Suppress("UNCHECKED_CAST")
         val methods = methodsRoot["methods"] as Map<String, List<Number>>
-        val methodRows = methods.entries.joinToString(",\n") { (key, values) ->
-            val literals = values.joinToString(", ") { it.toDouble().toString() }
-            "            \"$key\" to doubleArrayOf($literals)"
-        }
+        val methodRows =
+            methods.entries.joinToString(separator = ",\n", postfix = ",") { (key, values) ->
+                val literals = values.joinToString(", ") { it.toDouble().toString() }
+                "            \"$key\" to doubleArrayOf($literals)"
+            }
         File(outputDir, "MethodParameters.kt").writeText(
             buildString {
                 appendLine("// GENERATED — do not edit by hand.")
@@ -119,7 +127,9 @@ tasks.register("generatePrayerData") {
                 appendLine("        )")
                 appendLine()
                 appendLine("    /** Parameter array for [key], falling back to Muslim World League when unknown. */")
-                appendLine("    fun forKey(key: String): DoubleArray = (TABLE[key] ?: TABLE.getValue(\"mwl\")).copyOf()")
+                appendLine(
+                    "    fun forKey(key: String): DoubleArray = (TABLE[key] ?: TABLE.getValue(\"mwl\")).copyOf()",
+                )
                 appendLine()
                 appendLine("    /** Every method key present in the bundled table. */")
                 appendLine("    val keys: Set<String> get() = TABLE.keys")
@@ -133,9 +143,10 @@ tasks.register("generatePrayerData") {
 
         @Suppress("UNCHECKED_CAST")
         val country = autoRoot["country"] as Map<String, String>
-        val autoRows = country.entries.joinToString(",\n") { (code, method) ->
-            "            \"$code\" to \"$method\""
-        }
+        val autoRows =
+            country.entries.joinToString(separator = ",\n", postfix = ",") { (code, method) ->
+                "            \"$code\" to \"$method\""
+            }
         File(outputDir, "AutoMethodResolution.kt").writeText(
             buildString {
                 appendLine("// GENERATED — do not edit by hand.")
@@ -153,8 +164,8 @@ tasks.register("generatePrayerData") {
                 appendLine("        )")
                 appendLine()
                 appendLine("    /** Resolves the method key for an ISO-3166 alpha-2 [iso2] country code. */")
-                appendLine("    fun forCountry(iso2: String): String =")
-                appendLine("        COUNTRY_TO_METHOD[iso2.uppercase()] ?: MWL_DEFAULT")
+                append("    fun forCountry(iso2: String): String = ")
+                appendLine("COUNTRY_TO_METHOD[iso2.uppercase()] ?: MWL_DEFAULT")
                 appendLine("}")
             },
         )

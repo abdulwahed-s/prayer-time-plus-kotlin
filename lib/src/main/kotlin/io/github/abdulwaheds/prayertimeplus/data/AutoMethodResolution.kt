@@ -259,10 +259,9 @@ internal object AutoMethodResolution {
             "YT" to "egypt",
             "ZA" to "egypt",
             "ZM" to "egypt",
-            "ZW" to "egypt"
+            "ZW" to "egypt",
         )
 
     /** Resolves the method key for an ISO-3166 alpha-2 [iso2] country code. */
-    fun forCountry(iso2: String): String =
-        COUNTRY_TO_METHOD[iso2.uppercase()] ?: MWL_DEFAULT
+    fun forCountry(iso2: String): String = COUNTRY_TO_METHOD[iso2.uppercase()] ?: MWL_DEFAULT
 }

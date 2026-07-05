@@ -1,0 +1,17 @@
+# detekt configuration. Merged on top of the bundled default config
+# (buildUponDefaultConfig = true); only deliberate deviations live here.
+
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    # Test and example code is allowed to use inline literals freely; the library
+    # itself names its domain constants.
+    excludes: ['**/test/**', '**/example/**']
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreNamedArgument: true
+    ignoreRanges: true
+  MaxLineLength:
+    maxLineLength: 120

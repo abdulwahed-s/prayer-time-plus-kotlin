@@ -61,7 +61,7 @@ internal object MethodParameters {
             "southkorea" to doubleArrayOf(18.0, 1.0, 0.0, 0.0, 18.0, 1.0, -1.0, 0.0, 0.0, 0.0, -6.0),
             "rotterdam" to doubleArrayOf(15.0, 1.0, 0.0, 0.0, 15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
             "dordrecht" to doubleArrayOf(15.0, 1.0, 0.0, 0.0, 15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
-            "eindhoven" to doubleArrayOf(15.0, 1.0, 0.0, 0.0, 15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            "eindhoven" to doubleArrayOf(15.0, 1.0, 0.0, 0.0, 15.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
         )
 
     /** Parameter array for [key], falling back to Muslim World League when unknown. */
