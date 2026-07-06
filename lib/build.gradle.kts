@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.dokka)
     `java-library`
     `maven-publish`
 }
@@ -48,11 +49,19 @@ detekt {
     config.setFrom(rootProject.file("detekt.yml"))
 }
 
+val dokkaJavadocJar by tasks.registering(Jar::class) {
+    description = "Bundles the generated API documentation as a javadoc-classified jar."
+    group = "documentation"
+    archiveClassifier.set("javadoc")
+    from(tasks.named("dokkaGeneratePublicationHtml"))
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "prayer-time-plus"
             from(components["java"])
+            artifact(dokkaJavadocJar)
             pom {
                 name.set("prayer-time-plus")
                 description.set(project.description)
