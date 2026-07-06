@@ -6,3 +6,6 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+# JVM crash / heap-dump artifacts
+*.hprof
