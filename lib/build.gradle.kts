@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.vanniktech.publish)
     `java-library`
+    signing
 }
 
 group = "io.github.abdulwahed-s"
@@ -85,6 +86,14 @@ mavenPublishing {
             connection.set("scm:git:https://github.com/abdulwahed-s/prayer-time-plus-kotlin.git")
             developerConnection.set("scm:git:ssh://git@github.com/abdulwahed-s/prayer-time-plus-kotlin.git")
         }
+    }
+}
+
+// Sign releases with the local gpg command line (compatible with ed25519 keys);
+// CI can instead supply an in-memory key via the `signingInMemoryKey` property.
+if (!providers.gradleProperty("signingInMemoryKey").isPresent) {
+    signing {
+        useGpgCmd()
     }
 }
 
