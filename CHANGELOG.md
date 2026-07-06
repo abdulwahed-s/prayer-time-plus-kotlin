@@ -24,5 +24,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `AutoMethod` country-to-method resolution from bundled data.
 - Runnable example CLI (`./gradlew run`).
 
-[Unreleased]: https://github.com/abdulwaheds/prayer-time-plus-kotlin/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/abdulwaheds/prayer-time-plus-kotlin/releases/tag/v0.1.0
+[Unreleased]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/releases/tag/v0.1.0

@@ -19,7 +19,7 @@ Gradle (Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("io.github.abdulwaheds:prayer-time-plus:0.1.0")
+    implementation("io.github.abdulwahed-s:prayer-time-plus:0.1.0")
 }
 ```
 
@@ -27,11 +27,15 @@ Maven:
 
 ```xml
 <dependency>
-  <groupId>io.github.abdulwaheds</groupId>
+  <groupId>io.github.abdulwahed-s</groupId>
   <artifactId>prayer-time-plus</artifactId>
   <version>0.1.0</version>
 </dependency>
 ```
+
+> The published coordinate uses the group `io.github.abdulwahed-s`; the Kotlin
+> package is `io.github.abdulwaheds.prayertimeplus` (a hyphen is not a legal
+> package identifier).
 
 ## Quick start
 

@@ -1,3 +1,6 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
+import com.vanniktech.maven.publish.SonatypeHost
 import groovy.json.JsonSlurper
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -6,11 +9,11 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.vanniktech.publish)
     `java-library`
-    `maven-publish`
 }
 
-group = "io.github.abdulwaheds"
+group = "io.github.abdulwahed-s"
 version = "0.1.0"
 description = "Dependency-free Kotlin library for computing Islamic prayer times."
 
@@ -37,7 +40,6 @@ kotlin {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-    withSourcesJar()
 }
 
 tasks.named<Test>("test") {
@@ -49,41 +51,39 @@ detekt {
     config.setFrom(rootProject.file("detekt.yml"))
 }
 
-val dokkaJavadocJar by tasks.registering(Jar::class) {
-    description = "Bundles the generated API documentation as a javadoc-classified jar."
-    group = "documentation"
-    archiveClassifier.set("javadoc")
-    from(tasks.named("dokkaGeneratePublicationHtml"))
-}
+mavenPublishing {
+    // Publishes the main jar, a sources jar, and a Dokka-generated javadoc jar.
+    configure(
+        KotlinJvm(
+            javadocJar = JavadocJar.Dokka("dokkaGeneratePublicationHtml"),
+            sourcesJar = true,
+        ),
+    )
+    coordinates(group.toString(), "prayer-time-plus", version.toString())
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+    signAllPublications()
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "prayer-time-plus"
-            from(components["java"])
-            artifact(dokkaJavadocJar)
-            pom {
-                name.set("prayer-time-plus")
-                description.set(project.description)
-                url.set("https://github.com/abdulwaheds/prayer-time-plus-kotlin")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("abdulwaheds")
-                        name.set("abdulwahed-s")
-                    }
-                }
-                scm {
-                    url.set("https://github.com/abdulwaheds/prayer-time-plus-kotlin")
-                    connection.set("scm:git:https://github.com/abdulwaheds/prayer-time-plus-kotlin.git")
-                    developerConnection.set("scm:git:ssh://git@github.com/abdulwaheds/prayer-time-plus-kotlin.git")
-                }
+    pom {
+        name.set("prayer-time-plus")
+        description.set(project.description)
+        inceptionYear.set("2026")
+        url.set("https://github.com/abdulwahed-s/prayer-time-plus-kotlin")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
             }
+        }
+        developers {
+            developer {
+                id.set("abdulwahed-s")
+                name.set("abdulwahed-s")
+            }
+        }
+        scm {
+            url.set("https://github.com/abdulwahed-s/prayer-time-plus-kotlin")
+            connection.set("scm:git:https://github.com/abdulwahed-s/prayer-time-plus-kotlin.git")
+            developerConnection.set("scm:git:ssh://git@github.com/abdulwahed-s/prayer-time-plus-kotlin.git")
         }
     }
 }
