@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/security/advisories/new
+    about: Report vulnerabilities privately via a security advisory — never a public issue.
+  - name: Other ports (Dart & Swift)
+    url: https://github.com/abdulwahed-s/prayer_time_plus
+    about: Using another language? The same engine ships for Dart / Flutter and Swift.
