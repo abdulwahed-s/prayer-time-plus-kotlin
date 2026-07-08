@@ -1,10 +1,19 @@
 # prayer-time-plus
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.abdulwahed-s/prayer-time-plus)](https://central.sonatype.com/artifact/io.github.abdulwahed-s/prayer-time-plus)
+[![javadoc](https://javadoc.io/badge2/io.github.abdulwahed-s/prayer-time-plus/javadoc.svg)](https://javadoc.io/doc/io.github.abdulwahed-s/prayer-time-plus)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 A small, dependency-free **Kotlin** library for computing Islamic prayer times.
 It reproduces a classic PrayTimes/USNO solar model to the minute, with a public
 API modelled on the [Adhan](https://github.com/batoulapps/adhan-java) library and
 extended with sunset-relative Maghrib, per-prayer offsets, an automatic
 high-latitude fallback, and country-based "Auto" method resolution.
+
+> **Also available for [Dart / Flutter](https://github.com/abdulwahed-s/prayer_time_plus)
+> and [Swift](https://github.com/abdulwahed-s/prayer-time-plus-swift).** All three
+> are faithful ports of the same solar engine and compute identical times to the minute.
+> See [Other platforms](#other-platforms).
 
 - **Pure Kotlin, zero runtime dependencies** — the JDK time API only; the caller
   supplies the UTC offset, so there is no time-zone database to ship.
@@ -171,6 +180,17 @@ Prints today's prayer times for a sample location using the Auto-resolved method
 ./gradlew dokkaGenerate   # API documentation (HTML)
 ./gradlew publishToMavenLocal
 ```
+
+## Other platforms
+
+The same solar engine, ported idiomatically to three ecosystems — identical
+results to the minute:
+
+| Platform | Package | Repository |
+|---|---|---|
+| **Kotlin / JVM** — you are here | [`io.github.abdulwahed-s:prayer-time-plus`](https://central.sonatype.com/artifact/io.github.abdulwahed-s/prayer-time-plus) | [prayer-time-plus-kotlin](https://github.com/abdulwahed-s/prayer-time-plus-kotlin) |
+| Dart / Flutter | [`prayer_time_plus`](https://pub.dev/packages/prayer_time_plus) | [prayer_time_plus](https://github.com/abdulwahed-s/prayer_time_plus) |
+| Swift · iOS, macOS, watchOS, tvOS, Linux | [Swift Package Index](https://swiftpackageindex.com/abdulwahed-s/prayer-time-plus-swift) | [prayer-time-plus-swift](https://github.com/abdulwahed-s/prayer-time-plus-swift) |
 
 ## License
 
