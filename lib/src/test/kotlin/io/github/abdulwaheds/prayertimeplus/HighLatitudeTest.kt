@@ -43,9 +43,35 @@ class HighLatitudeTest {
 
     @Test
     fun autoModeFallsBackWhenAngleTimesAreDegenerate() {
-        val auto = PrayerTimes(oslo, date, base.copy(highLatitudeRule = null), offset)
+        val auto =
+            PrayerTimes(
+                oslo,
+                date,
+                base.copy(highLatitudeRule = HighLatitudeRule.AUTOMATIC),
+                offset,
+            )
         assertNotNull(auto.fajr, "auto mode should fall back to a night fraction")
         assertNotNull(auto.isha, "auto mode should fall back to a night fraction")
+    }
+
+    @Test
+    fun ukAutoMethodWithAutomaticHighLatitudeResolvesLondonSummer() {
+        val params =
+            AutoMethod.forCountry("GB")
+                .parameters()
+                .copy(highLatitudeRule = HighLatitudeRule.AUTOMATIC)
+        val times =
+            PrayerTimes(
+                Coordinates(latitude = 51.5080, longitude = -0.1281),
+                DateComponents(2026, 7, 9),
+                params,
+                ZoneOffset.ofHours(1),
+                countryCode = "GB",
+                cityName = "London",
+            )
+
+        assertNotNull(times.fajr, "UK automatic high-latitude Fajr should resolve")
+        assertNotNull(times.isha, "UK automatic high-latitude Isha should resolve")
     }
 
     private fun timesWith(rule: HighLatitudeRule): PrayerTimes =

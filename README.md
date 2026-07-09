@@ -28,7 +28,7 @@ Gradle (Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("io.github.abdulwahed-s:prayer-time-plus:0.1.0")
+    implementation("io.github.abdulwahed-s:prayer-time-plus:0.2.0")
 }
 ```
 
@@ -38,7 +38,7 @@ Maven:
 <dependency>
   <groupId>io.github.abdulwahed-s</groupId>
   <artifactId>prayer-time-plus</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
@@ -118,13 +118,14 @@ from a fraction of the night:
 
 | `HighLatitudeRule` | Behaviour |
 |---|---|
+| `AUTOMATIC` | no fixed rule first; retries once with `SEVENTH_OF_THE_NIGHT` if Fajr or Isha come out degenerate |
 | `NONE` | no adjustment (times may be `null`) |
 | `MIDDLE_OF_THE_NIGHT` | half of the night |
 | `SEVENTH_OF_THE_NIGHT` | one seventh of the night |
 | `TWILIGHT_ANGLE` | a fraction proportional to the twilight angle |
 
-Leaving `highLatitudeRule = null` (the default) applies no adjustment, but
-retries once with `SEVENTH_OF_THE_NIGHT` if Fajr or Isha come out degenerate.
+`HighLatitudeRule.AUTOMATIC` is the default. Use `HighLatitudeRule.NONE` to
+never apply a fallback.
 
 ## Auto method resolution
 

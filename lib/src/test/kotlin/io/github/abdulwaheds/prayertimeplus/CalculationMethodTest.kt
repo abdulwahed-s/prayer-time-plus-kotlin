@@ -20,6 +20,14 @@ class CalculationMethodTest {
     }
 
     @Test
+    fun parametersDefaultToAutomaticHighLatitudeRule() {
+        assertEquals(
+            HighLatitudeRule.AUTOMATIC,
+            CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters().highLatitudeRule,
+        )
+    }
+
+    @Test
     fun ummAlQuraUsesAnIntervalIsha() {
         val params = CalculationMethod.UMM_AL_QURA.parameters()
         assertTrue(params.ishaIsInterval)

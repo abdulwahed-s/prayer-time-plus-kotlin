@@ -5,10 +5,16 @@ package io.github.abdulwaheds.prayertimeplus
  * depression angle, so the pure angle-based time is undefined (typical of high
  * latitudes in summer).
  *
- * Each rule replaces the missing time with a fraction of the night, where the
- * night runs from sunset to the following sunrise.
+ * When a fixed rule is selected, the missing time is replaced with a fraction
+ * of the night, where the night runs from sunset to the following sunrise.
  */
 public enum class HighLatitudeRule {
+    /**
+     * No fixed rule: use the natural angle-based times, but if that leaves Fajr
+     * or Isha undefined, recompute once using [SEVENTH_OF_THE_NIGHT].
+     */
+    AUTOMATIC,
+
     /**
      * No adjustment. The angle-based time is used as-is and may be undefined
      * (returned as `null`) when the sun stays above the depression angle.

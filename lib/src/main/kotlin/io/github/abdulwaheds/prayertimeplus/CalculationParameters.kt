@@ -35,9 +35,10 @@ package io.github.abdulwaheds.prayertimeplus
  * @property adjustments the caller's own per-prayer minute offsets, added on top
  *   of [methodAdjustments].
  * @property madhab the Asr shadow rule.
- * @property highLatitudeRule the high-latitude fallback, or `null` to let the
- *   engine decide: no fallback, but a one-shot retry with
- *   [HighLatitudeRule.SEVENTH_OF_THE_NIGHT] if Fajr or Isha come out degenerate.
+ * @property highLatitudeRule the high-latitude fallback.
+ *   [HighLatitudeRule.AUTOMATIC] applies no fallback first, then retries once
+ *   with [HighLatitudeRule.SEVENTH_OF_THE_NIGHT] if Fajr or Isha come out
+ *   degenerate. Use [HighLatitudeRule.NONE] to never apply a fallback.
  * @property isRamadan whether the date falls in Ramadan; combined with the
  *   `makkah` method in Saudi Arabia this adds 30 minutes to Isha.
  */
@@ -51,6 +52,6 @@ public data class CalculationParameters(
     val methodAdjustments: PrayerAdjustments = PrayerAdjustments(),
     val adjustments: PrayerAdjustments = PrayerAdjustments(),
     val madhab: Madhab = Madhab.SHAFI,
-    val highLatitudeRule: HighLatitudeRule? = null,
+    val highLatitudeRule: HighLatitudeRule = HighLatitudeRule.AUTOMATIC,
     val isRamadan: Boolean = false,
 )

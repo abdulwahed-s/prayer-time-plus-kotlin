@@ -6,6 +6,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-09
+
+### Changed
+
+- Added `HighLatitudeRule.AUTOMATIC` as the explicit default high-latitude
+  behavior, matching the Swift and Dart packages.
+- Changed `CalculationParameters.highLatitudeRule` to default to
+  `HighLatitudeRule.AUTOMATIC` instead of relying on `null`.
+- Kept `HighLatitudeRule.NONE` as the explicit unadjusted mode where Fajr and
+  Isha may remain `null`.
+
 ## [0.1.0] - 2026-07-06
 
 ### Added
@@ -24,5 +35,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `AutoMethod` country-to-method resolution from bundled data.
 - Runnable example CLI (`./gradlew run`).
 
-[Unreleased]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/releases/tag/v0.1.0

@@ -161,6 +161,7 @@ internal class PrayerTimeCalculator(
         angle: Double,
     ): Double =
         when (rule) {
+            HighLatitudeRule.AUTOMATIC -> SEVENTH_PORTION
             HighLatitudeRule.NONE -> 0.0
             HighLatitudeRule.MIDDLE_OF_THE_NIGHT -> MIDDLE_PORTION
             HighLatitudeRule.SEVENTH_OF_THE_NIGHT -> SEVENTH_PORTION

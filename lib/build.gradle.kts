@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "io.github.abdulwahed-s"
-version = "0.1.0"
+version = "0.2.0"
 description = "Dependency-free Kotlin library for computing Islamic prayer times."
 
 repositories {

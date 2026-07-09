@@ -79,10 +79,15 @@ public class PrayerTimes(
                 timeZoneHours = utcOffset.totalSeconds / SECONDS_PER_HOUR,
             )
 
-        val explicitRule = calculationParameters.highLatitudeRule
-        val firstPass = calculator.compute(explicitRule ?: HighLatitudeRule.NONE)
+        val rule = calculationParameters.highLatitudeRule
+        val firstPass =
+            if (rule == HighLatitudeRule.AUTOMATIC) {
+                calculator.compute(HighLatitudeRule.NONE)
+            } else {
+                calculator.compute(rule)
+            }
         val resolved =
-            if (explicitRule == null && firstPass.looksDegenerate()) {
+            if (rule == HighLatitudeRule.AUTOMATIC && firstPass.looksDegenerate()) {
                 // Auto mode retries once with a night-fraction fallback.
                 calculator.compute(HighLatitudeRule.SEVENTH_OF_THE_NIGHT)
             } else {
