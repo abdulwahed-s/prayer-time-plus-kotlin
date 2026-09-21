@@ -28,7 +28,7 @@ Gradle (Kotlin DSL):
 
 ```kotlin
 dependencies {
-    implementation("io.github.abdulwahed-s:prayer-time-plus:0.2.0")
+    implementation("io.github.abdulwahed-s:prayer-time-plus:0.3.0")
 }
 ```
 
@@ -38,7 +38,7 @@ Maven:
 <dependency>
   <groupId>io.github.abdulwahed-s</groupId>
   <artifactId>prayer-time-plus</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 

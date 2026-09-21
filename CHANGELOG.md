@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-21
+
 ### Added
 
 - Working angle-based Maghrib support through the existing
@@ -18,6 +20,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Interval Isha is calculated from the final Maghrib, including an angle-based
   Maghrib; method and user offsets remain applied exactly once.
+- Automatic national method resolution now maps Iraq (`IQ`) to `iraq` instead
+  of `egypt`, and Austria (`AT`) to `austria` instead of `tunisia`.
+- Removed the unused continent fallback from the generated resolution model;
+  country misses now fall back directly to Muslim World League as documented.
 
 ## [0.2.0] - 2026-07-09
 
@@ -48,6 +54,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `AutoMethod` country-to-method resolution from bundled data.
 - Runnable example CLI (`./gradlew run`).
 
-[Unreleased]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/abdulwahed-s/prayer-time-plus-kotlin/releases/tag/v0.1.0
