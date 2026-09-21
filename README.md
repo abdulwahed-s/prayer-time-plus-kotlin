@@ -7,7 +7,7 @@
 A small, dependency-free **Kotlin** library for computing Islamic prayer times.
 It reproduces a classic PrayTimes/USNO solar model to the minute, with a public
 API modelled on the [Adhan](https://github.com/batoulapps/adhan-java) library and
-extended with sunset-relative Maghrib, per-prayer offsets, an automatic
+extended with angle- or sunset-relative Maghrib, per-prayer offsets, an automatic
 high-latitude fallback, and country-based "Auto" method resolution.
 
 > **Also available for [Dart / Flutter](https://github.com/abdulwahed-s/prayer_time_plus)
@@ -164,6 +164,25 @@ val params = CalculationMethod.OMAN.parameters().copy(
 ```
 
 Fully custom parameters can also be built directly with `CalculationParameters`.
+
+To configure all three twilight angles from the shared Custom preset:
+
+```kotlin
+val params = CalculationMethod.OTHER.parameters().copy(
+    fajrAngle = 18.0,
+    maghribIsInterval = false,
+    maghribValue = 4.0,
+    ishaIsInterval = false,
+    ishaValue = 17.0,
+)
+```
+
+With `maghribIsInterval = false`, a positive `maghribValue` is the evening
+solar-depression angle; zero or a negative value keeps Maghrib at sunset. An
+unavailable or non-chronological angle safely falls back to sunset. With the flag
+set to `true`, the value remains minutes after sunset. Interval Isha is always
+measured from the final Maghrib, including an angle-based one. `OTHER` uses the
+stable key `custom` and defaults to Fajr 18°, Maghrib at sunset, and Isha 17°.
 
 ## Example CLI
 

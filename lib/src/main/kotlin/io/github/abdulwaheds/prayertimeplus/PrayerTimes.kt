@@ -60,10 +60,10 @@ public class PrayerTimes(
     /** Afternoon prayer, or `null` if undefined. */
     public val asr: OffsetDateTime?
 
-    /** Sunset (from which Maghrib is derived), or `null` if undefined. */
+    /** Sunset (used by the default and interval Maghrib modes), or `null` if undefined. */
     public val sunset: OffsetDateTime?
 
-    /** Sunset prayer, or `null` if undefined. */
+    /** Sunset prayer, optionally calculated from an evening depression angle. */
     public val maghrib: OffsetDateTime?
 
     /** Night prayer, or `null` if undefined. */

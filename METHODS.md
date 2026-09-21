@@ -4,10 +4,12 @@ Every `CalculationMethod` produces a `CalculationParameters` describing four
 things:
 
 - **Fajr** — a sun-depression angle below the horizon.
-- **Maghrib** — always derived from sunset: at sunset, or a fixed number of
-  minutes after (or before) it.
+- **Maghrib** — sunset by default, a fixed number of minutes after it in
+  interval mode, or an evening solar-depression angle when a positive
+  non-interval value is configured. Unavailable or non-chronological angles
+  fall back to sunset.
 - **Isha** — either a sun-depression angle, or a fixed interval measured from
-  Maghrib.
+  the final Maghrib (including an angle-based Maghrib).
 - **Offsets** — whole-minute adjustments applied per prayer.
 
 Angles and offsets are authority-specific. The exact values are returned by
@@ -70,7 +72,7 @@ here); computed from angles they equal a standard method:
 
 - **18° / Sunset / 17°** (Muslim World League angles): `DUBAI`, `LONDON`,
   `BIRMINGHAM`, `BLACKBURN`, `AACHEN`, `MUNCHEN`, `POTSDAM`, `NURNBERG`,
-  `AUSTRIA`, `LUXEMBOURG`, `OTHER`, `NONE`.
+  `AUSTRIA`, `LUXEMBOURG`, `OTHER` (`custom` key), `NONE`.
 - **15° / Sunset / 15°** (ISNA angles): `MONTREAL`, `WINDSOR`, `CALGARY`,
   `MISSISSAUGA`, `ROTTERDAM`, `DORDRECHT`, `EINDHOVEN`.
 

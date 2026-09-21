@@ -61,7 +61,8 @@ internal class PrayerTimeCalculator(
         val rawDhuhr = midDay(DHUHR_SEED)
         val rawAsr = asrTime(parameters.madhab.shadowFactor.toDouble(), ASR_SEED)
         val rawSunset = sunAngleTime(dip, SUNSET_SEED)
-        // Provisional angle-based Isha; used only when Isha is an angle, not an interval.
+        // Provisional evening-angle times; interval modes replace their values below.
+        val rawMaghrib = sunAngleTime(parameters.maghribValue, MAGHRIB_SEED)
         val rawIsha = sunAngleTime(parameters.ishaValue, ISHA_SEED)
 
         // Localise every time from the longitude frame to the wall clock.
@@ -71,7 +72,8 @@ internal class PrayerTimeCalculator(
         var dhuhr = rawDhuhr + localisation
         var asr = rawAsr + localisation
         val sunset = rawSunset + localisation
-        var isha = rawIsha + localisation
+        val angleMaghrib = rawMaghrib + localisation + offsets.maghrib / MINUTES_PER_HOUR
+        val angleIsha = rawIsha + localisation + offsets.isha / MINUTES_PER_HOUR
 
         // Per-prayer minute offsets.
         fajr += offsets.fajr / MINUTES_PER_HOUR
@@ -79,17 +81,18 @@ internal class PrayerTimeCalculator(
         dhuhr += offsets.dhuhr / MINUTES_PER_HOUR
         asr += offsets.asr / MINUTES_PER_HOUR
 
-        // Maghrib is always derived from sunset.
-        var maghrib = sunset + offsets.maghrib / MINUTES_PER_HOUR
-        if (parameters.maghribIsInterval) {
-            maghrib += parameters.maghribValue / MINUTES_PER_HOUR
-        }
+        // Resolve Maghrib before interval Isha. A positive non-interval value is
+        // an evening depression angle; invalid/unavailable candidates use sunset.
+        val maghrib = resolveMaghrib(sunset, angleMaghrib, angleIsha)
 
-        // Isha is either a fixed interval after Maghrib or the angle value above.
-        if (parameters.ishaIsInterval) {
-            isha = maghrib + parameters.ishaValue / MINUTES_PER_HOUR
-        }
-        isha += offsets.isha / MINUTES_PER_HOUR
+        // Interval Isha starts from the final Maghrib; angle Isha already has
+        // its own offset applied exactly once.
+        var isha =
+            if (parameters.ishaIsInterval) {
+                maghrib + parameters.ishaValue / MINUTES_PER_HOUR + offsets.isha / MINUTES_PER_HOUR
+            } else {
+                angleIsha
+            }
 
         // Umm al-Qura adds 30 minutes to Isha during Ramadan in Saudi Arabia.
         if (parameters.method == MAKKAH_KEY &&
@@ -156,6 +159,24 @@ internal class PrayerTimeCalculator(
     private fun usesElevation(): Boolean =
         parameters.method in ELEVATION_METHODS || countryCode.uppercase() in ELEVATION_COUNTRIES
 
+    /** Selects an interval, valid evening-angle, or sunset-based Maghrib. */
+    private fun resolveMaghrib(
+        sunset: Double,
+        angleMaghrib: Double,
+        angleIsha: Double,
+    ): Double {
+        val sunsetBasedMaghrib = sunset + offsets.maghrib / MINUTES_PER_HOUR
+        if (parameters.maghribIsInterval) {
+            return sunsetBasedMaghrib + parameters.maghribValue / MINUTES_PER_HOUR
+        }
+
+        val isChronological =
+            angleMaghrib.isFinite() &&
+                angleMaghrib > sunset &&
+                (parameters.ishaIsInterval || !angleIsha.isFinite() || angleMaghrib < angleIsha)
+        return if (parameters.maghribValue > 0.0 && isChronological) angleMaghrib else sunsetBasedMaghrib
+    }
+
     private fun nightPortion(
         rule: HighLatitudeRule,
         angle: Double,
@@ -191,6 +212,7 @@ internal class PrayerTimeCalculator(
         const val DHUHR_SEED = 12.0 / 24.0
         const val ASR_SEED = 13.0 / 24.0
         const val SUNSET_SEED = 18.0 / 24.0
+        const val MAGHRIB_SEED = 18.0 / 24.0
         const val ISHA_SEED = 18.0 / 24.0
 
         val ELEVATION_METHODS =

@@ -2,7 +2,10 @@
 // Regenerate with: ./gradlew :lib:generatePrayerData
 package io.github.abdulwaheds.prayertimeplus.data
 
-/** Bundled 11-element parameter arrays, keyed by calculation-method name. */
+/**
+ * Bundled 11-element parameter arrays, keyed by calculation-method name.
+ * Non-interval Maghrib values are evening angles; non-positive means sunset.
+ */
 internal object MethodParameters {
     private val TABLE: Map<String, DoubleArray> =
         mapOf(

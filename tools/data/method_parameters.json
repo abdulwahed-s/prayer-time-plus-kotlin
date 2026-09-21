@@ -1,5 +1,5 @@
 {
-  "_doc": "Source of truth for the generated MethodParameters table. Each row is the 11-element parameter array in column order. Regenerate the Kotlin with: ./gradlew :lib:generatePrayerData",
+  "_doc": "Source of truth for the generated MethodParameters table. Maghrib value is minutes after sunset when its interval flag is 1; otherwise it is an evening depression angle in degrees and non-positive means sunset. Regenerate the Kotlin with: ./gradlew :lib:generatePrayerData",
   "_columns": [
     "fajrAngle", "maghribIsInterval", "maghribValue", "ishaIsInterval", "ishaValue",
     "fajrAdj", "sunriseAdj", "dhuhrAdj", "asrAdj", "maghribAdj", "ishaAdj"

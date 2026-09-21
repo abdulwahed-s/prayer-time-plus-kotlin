@@ -14,19 +14,21 @@ package io.github.abdulwaheds.prayertimeplus
  * )
  * ```
  *
- * Fajr is always an angle. Maghrib is always derived from sunset — either at
- * sunset itself or [maghribValue] minutes after it when [maghribIsInterval] is
- * true. Isha is either an angle ([ishaValue] degrees, when [ishaIsInterval] is
- * false) or a fixed interval of [ishaValue] minutes after Maghrib.
+ * Fajr is always an angle. Maghrib is either [maghribValue] minutes after sunset
+ * when [maghribIsInterval] is true, an evening depression angle when it is false
+ * and positive, or sunset when it is false and non-positive. Isha is either an
+ * angle ([ishaValue] degrees, when [ishaIsInterval] is false) or a fixed interval
+ * of [ishaValue] minutes after the final Maghrib.
  *
  * @property method the preset key this originated from, or `null` for a fully
  *   custom set. Two behaviours key off it: the horizon-dip elevation methods and
  *   the Umm al-Qura Ramadan rule (see [isRamadan]).
  * @property fajrAngle sun depression below the horizon for Fajr, in degrees.
- * @property maghribIsInterval whether Maghrib is offset from sunset by
- *   [maghribValue] minutes (`true`) or taken at sunset (`false`).
- * @property maghribValue minutes after sunset for Maghrib when
- *   [maghribIsInterval] is true; otherwise unused.
+ * @property maghribIsInterval whether [maghribValue] is minutes after sunset
+ *   (`true`) or an evening solar-depression angle (`false`).
+ * @property maghribValue minutes after sunset in interval mode, or the evening
+ *   depression angle in degrees in non-interval mode. A non-positive angle means
+ *   sunset. An unavailable or non-chronological angle safely falls back to sunset.
  * @property ishaIsInterval whether Isha is a fixed interval after Maghrib
  *   (`true`) or an angle (`false`).
  * @property ishaValue minutes after Maghrib when [ishaIsInterval] is true,

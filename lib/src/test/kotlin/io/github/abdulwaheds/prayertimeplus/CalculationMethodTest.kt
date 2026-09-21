@@ -49,4 +49,52 @@ class CalculationMethodTest {
         assertEquals(CalculationMethod.OMAN, AutoMethod.forCountry("om"))
         assertEquals(CalculationMethod.MUSLIM_WORLD_LEAGUE, AutoMethod.forCountry("ZZ"))
     }
+
+    @Test
+    fun autoResolutionUsesCorrectedIraqAndAustriaDefaults() {
+        assertEquals(CalculationMethod.IRAQ, AutoMethod.forCountry("IQ"))
+        assertEquals(CalculationMethod.AUSTRIA, AutoMethod.forCountry("AT"))
+    }
+
+    @Test
+    fun autoResolutionCoversEveryDedicatedNationalMethod() {
+        // Every supported country-wide preset. Global/regional defaults and city-only
+        // variants are intentionally excluded.
+        val expected =
+            mapOf(
+                "AE" to CalculationMethod.EMIRATES,
+                "AT" to CalculationMethod.AUSTRIA,
+                "BE" to CalculationMethod.BELGIUM,
+                "CH" to CalculationMethod.SWITZERLAND,
+                "CZ" to CalculationMethod.CZECH,
+                "DZ" to CalculationMethod.ALGERIA,
+                "EG" to CalculationMethod.EGYPTIAN,
+                "FR" to CalculationMethod.UOIF,
+                "ID" to CalculationMethod.INDONESIA,
+                "IQ" to CalculationMethod.IRAQ,
+                "JO" to CalculationMethod.JORDAN,
+                "KR" to CalculationMethod.SOUTH_KOREA,
+                "KW" to CalculationMethod.KUWAIT,
+                "KZ" to CalculationMethod.KAZAKHSTAN,
+                "LU" to CalculationMethod.LUXEMBOURG,
+                "LY" to CalculationMethod.LIBYA,
+                "MA" to CalculationMethod.MOROCCO,
+                "MV" to CalculationMethod.MALDIVES,
+                "MY" to CalculationMethod.MALAYSIA2,
+                "OM" to CalculationMethod.OMAN,
+                "PK" to CalculationMethod.KARACHI,
+                "PS" to CalculationMethod.PALESTINE,
+                "QA" to CalculationMethod.QATAR,
+                "SA" to CalculationMethod.UMM_AL_QURA,
+                "SD" to CalculationMethod.SUDAN,
+                "SY" to CalculationMethod.SYRIA,
+                "TJ" to CalculationMethod.TAJIKISTAN,
+                "TN" to CalculationMethod.TUNISIA,
+                "TR" to CalculationMethod.TURKEY,
+            )
+
+        for ((countryCode, method) in expected) {
+            assertEquals(method, AutoMethod.forCountry(countryCode), countryCode)
+        }
+    }
 }

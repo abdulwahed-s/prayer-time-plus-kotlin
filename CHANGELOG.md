@@ -6,6 +6,19 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Working angle-based Maghrib support through the existing
+  `maghribIsInterval`/`maghribValue` API, with safe Sunset fallback for
+  unavailable or non-chronological events.
+- Cross-package Custom preset parity: Fajr 18°, Maghrib at Sunset, Isha 17°,
+  with stable key `custom`.
+
+### Fixed
+
+- Interval Isha is calculated from the final Maghrib, including an angle-based
+  Maghrib; method and user offsets remain applied exactly once.
+
 ## [0.2.0] - 2026-07-09
 
 ### Changed

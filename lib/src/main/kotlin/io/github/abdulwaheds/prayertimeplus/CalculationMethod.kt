@@ -190,7 +190,7 @@ public enum class CalculationMethod(public val key: String) {
     /** Eindhoven (Netherlands): Fajr 15°, Isha 15°. */
     EINDHOVEN("eindhoven"),
 
-    /** Placeholder carrying Muslim World League parameters; a starting point for a fully custom set. */
+    /** Custom starting point: Fajr 18°, Maghrib at sunset, Isha 17°; stable key `custom`. */
     OTHER("custom"),
 
     /** Placeholder carrying Muslim World League parameters. */
