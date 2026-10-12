@@ -10,9 +10,11 @@ API modelled on the [Adhan](https://github.com/batoulapps/adhan-java) library an
 extended with angle- or sunset-relative Maghrib, per-prayer offsets, an automatic
 high-latitude fallback, and country-based "Auto" method resolution.
 
-> **Also available for [Dart / Flutter](https://github.com/abdulwahed-s/prayer_time_plus)
-> and [Swift](https://github.com/abdulwahed-s/prayer-time-plus-swift).** All three
-> are faithful ports of the same solar engine and compute identical times to the minute.
+> **Also available for [Dart / Flutter](https://github.com/abdulwahed-s/prayer_time_plus),
+> [Swift](https://github.com/abdulwahed-s/prayer-time-plus-swift), and
+> [C# / .NET](https://github.com/abdulwahed-s/prayer-time-plus-csharp).** All four
+> are faithful ports of the same solar engine and match supported prayer-time
+> calculations to the minute for identical inputs.
 > See [Other platforms](#other-platforms).
 
 - **Pure Kotlin, zero runtime dependencies** — the JDK time API only; the caller
@@ -203,14 +205,15 @@ Prints today's prayer times for a sample location using the Auto-resolved method
 
 ## Other platforms
 
-The same solar engine, ported idiomatically to three ecosystems — identical
-results to the minute:
+The same solar engine, ported idiomatically to four ecosystems, with matching
+supported prayer-time calculations to the minute:
 
 | Platform | Package | Repository |
 |---|---|---|
 | **Kotlin / JVM** — you are here | [`io.github.abdulwahed-s:prayer-time-plus`](https://central.sonatype.com/artifact/io.github.abdulwahed-s/prayer-time-plus) | [prayer-time-plus-kotlin](https://github.com/abdulwahed-s/prayer-time-plus-kotlin) |
 | Dart / Flutter | [`prayer_time_plus`](https://pub.dev/packages/prayer_time_plus) | [prayer_time_plus](https://github.com/abdulwahed-s/prayer_time_plus) |
 | Swift · iOS, macOS, watchOS, tvOS, Linux | [Swift Package Index](https://swiftpackageindex.com/abdulwahed-s/prayer-time-plus-swift) | [prayer-time-plus-swift](https://github.com/abdulwahed-s/prayer-time-plus-swift) |
+| C# / .NET | [`PrayerTimePlus`](https://www.nuget.org/packages/PrayerTimePlus) | [prayer-time-plus-csharp](https://github.com/abdulwahed-s/prayer-time-plus-csharp) |
 
 ## License
 
